@@ -214,7 +214,7 @@ body {
 }
 
 .album-title {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
@@ -222,8 +222,10 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.5rem;
-  line-height: 1.2;
+  text-overflow: ellipsis;
+  min-height: 2rem;
+  line-height: 1.1;
+  word-break: break-word;
 }
 
 .album-release-date {
