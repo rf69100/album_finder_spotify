@@ -214,7 +214,7 @@ function App() {
                   {loading ? (
                     <>
                       <span className="spinner"></span>
-                      Recherche...
+                      Recherche... 
                     </>
                   ) : (
                     "Explorer"
