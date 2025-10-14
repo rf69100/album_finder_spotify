@@ -150,64 +150,97 @@ body {
   padding: 20px 0;
 }
 
-/* ALBUMS AVEC IMAGES */
 .albums-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* Cartes d'album */
 .album-card {
   background: var(--card-bg);
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
+  transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.album-card:hover {
+  transform: translateY(-8px);
+  background: rgba(40, 40, 40, 0.8);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.album-card:hover .album-image {
+  transform: scale(1.05);
+}
+
+.album-image-container {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 100%; /* Ratio carré */
 }
 
 .album-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
 .album-content {
-  flex: 1;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  padding: 16px;
 }
 
 .album-title {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .album-release-date {
-  font-size: 0.8rem;
+  font-size: 14px;
   color: var(--text-secondary);
-  margin: 0;
+  margin-bottom: 12px;
+  line-height: 1.4;
 }
 
 .album-link-btn {
   background: var(--spotify-green);
   border: none;
   border-radius: 20px;
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   color: var(--spotify-black);
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 12px;
   text-decoration: none;
+  display: inline-block;
   text-align: center;
+  transition: all 0.3s ease;
+  width: 100%;
   text-transform: uppercase;
-  align-self: flex-start;
+  letter-spacing: 0.5px;
+}
+
+.album-link-btn:hover {
+  background: var(--spotify-hover-green);
+  transform: scale(1.05);
+  color: var(--spotify-black);
+  text-decoration: none;
 }
 
 /* État de chargement */
