@@ -2,8 +2,9 @@ import { FormControl, Container, Button, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import "./App.css";
 
-const clientId = import.meta.env.VITE_CLIENT_ID;
-const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
+// Variables d'environnement avec fallback
+const clientId = import.meta.env.VITE_CLIENT_ID || "";
+const clientSecret = import.meta.env.VITE_CLIENT_SECRET || "";
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
@@ -12,8 +13,22 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
+  const [configError, setConfigError] = useState("");
+
+  // Vérification de la configuration au chargement
+  useEffect(() => {
+    if (!clientId || !clientSecret) {
+      setConfigError("Configuration manquante - L'application n'est pas configurée correctement pour la production");
+      return;
+    }
+  }, []);
 
   useEffect(() => {
+    // Ne pas essayer de s'authentifier si les credentials sont manquants
+    if (!clientId || !clientSecret) {
+      return;
+    }
+
     let authParams = {
       method: "POST",
       headers: {
@@ -29,6 +44,10 @@ function App() {
     fetch("https://accounts.spotify.com/api/token", authParams)
       .then((result) => result.json())
       .then((data) => {
+        if (data.error) {
+          setError("Erreur d'authentification Spotify - Vérifiez les clés API");
+          return;
+        }
         setAccessToken(data.access_token);
       })
       .catch((err) => {
@@ -42,6 +61,18 @@ function App() {
       setAlbums([]);
       setError("");
       setHasSearched(false);
+      return;
+    }
+    
+    // Vérifier la configuration avant de rechercher
+    if (!clientId || !clientSecret) {
+      setError("Application non configurée - Contactez l'administrateur");
+      return;
+    }
+
+    // Vérifier que l'access token est disponible
+    if (!accessToken) {
+      setError("Connexion à Spotify en cours... Réessayez dans quelques secondes");
       return;
     }
     
@@ -63,6 +94,11 @@ function App() {
         "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
         artistParams
       );
+      
+      if (!artistResponse.ok) {
+        throw new Error(`Erreur API: ${artistResponse.status}`);
+      }
+      
       const artistData = await artistResponse.json();
       
       if (!artistData.artists?.items?.length) {
@@ -80,10 +116,16 @@ function App() {
           "/albums?include_groups=album&market=US&limit=50",
         artistParams
       );
+      
+      if (!albumsResponse.ok) {
+        throw new Error(`Erreur API: ${albumsResponse.status}`);
+      }
+      
       const albumsData = await albumsResponse.json();
       setAlbums(albumsData.items || []);
     } catch (err) {
-      setError("Erreur lors de la recherche");
+      console.error("Erreur recherche:", err);
+      setError(err.message || "Erreur lors de la recherche");
     } finally {
       setLoading(false);
     }
@@ -94,6 +136,36 @@ function App() {
     setAlbums([]);
     setError("");
     setHasSearched(false);
+  }
+
+  // Afficher l'erreur de configuration en premier
+  if (configError) {
+    return (
+      <div className="app-container">
+        <div className="search-header">
+          <Container>
+            <div className="hero-section">
+              <h1 className="hero-title">
+                <span className="hero-spotify">Spotify</span> Album Explorer
+              </h1>
+            </div>
+          </Container>
+        </div>
+        <Container className="albums-container">
+          <div className="error-message">
+            <h3>Configuration requise</h3>
+            <p>{configError}</p>
+            <p className="config-help">
+              Pour résoudre ce problème :
+              <br />
+              1. Vérifiez que les variables VITE_CLIENT_ID et VITE_CLIENT_SECRET sont définies
+              <br />
+              2. Redéployez l'application
+            </p>
+          </div>
+        </Container>
+      </div>
+    );
   }
 
   return (
@@ -152,7 +224,7 @@ function App() {
             </div>
             
             {/* Suggestions d'artistes */}
-            {!hasSearched && albums.length === 0 && (
+            {!hasSearched && albums.length === 0 && !error && (
               <div className="suggestions">
                 <p className="suggestions-title">Artistes populaires :</p>
                 <div className="suggestions-tags">
@@ -179,8 +251,16 @@ function App() {
       <Container className="albums-container">
         {error && (
           <div className="error-message">
+            <div className="error-icon">
+              {error.includes("configurée")}
+            </div>
             <h3>{error}</h3>
-            <p>Vérifiez l'orthographe ou essayez un autre artiste</p>
+            <p>
+              {error.includes("configurée") 
+                ? "L'application nécessite une configuration pour fonctionner" 
+                : "Vérifiez l'orthographe ou essayez un autre artiste"
+              }
+            </p>
             <Button className="retry-btn" onClick={clearSearch}>
               Nouvelle recherche
             </Button>
@@ -221,7 +301,6 @@ function App() {
 
         {!loading && hasSearched && albums.length === 0 && !error && (
           <div className="empty-state">
-            <div className="empty-state-icon">🎤</div>
             <h3>Prêt à explorer ?</h3>
             <p>Commencez par rechercher un artiste ci-dessus</p>
           </div>
