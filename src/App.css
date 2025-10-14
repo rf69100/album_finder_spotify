@@ -1,17 +1,60 @@
-/* ===== VARIABLES SPOTIFY ===== */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+/* Variables CSS pour le thème Spotify */
 :root {
   --spotify-green: #1db954;
   --spotify-black: #191414;
   --spotify-white: #ffffff;
   --spotify-gray: #b3b3b3;
   --spotify-dark-gray: #535353;
+  --spotify-light-black: #181818;
   --spotify-hover-green: #1ed760;
   --card-bg: #282828;
   --text-primary: #ffffff;
   --text-secondary: #b3b3b3;
 }
 
-/* ===== RESET ET BASES ===== */
+/* Reset et styles de base */
 * {
   margin: 0;
   padding: 0;
@@ -19,56 +62,52 @@
 }
 
 body {
-  background: var(--spotify-black);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, var(--spotify-black) 0%, #000000 100%);
+  font-family: 'Circular Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: var(--text-primary);
   min-height: 100vh;
-  overflow-x: hidden;
+  line-height: 1.6;
 }
 
-#root {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 1rem;
-  text-align: center;
-}
-
-/* ===== LAYOUT PRINCIPAL ===== */
+/* Container principal */
 .app-container {
   min-height: 100vh;
-  width: 100%;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
+  padding: 20px 0;
 }
 
-/* ===== HEADER ET RECHERCHE ===== */
+/* Header et recherche */
 .search-header {
-  margin-bottom: 1.5rem;
-  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 30px 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--spotify-dark-gray);
 }
 
 .search-container {
-  width: 100%;
-  max-width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .search-input-group {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  width: 100%;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .search-input {
-  width: 100%;
+  flex: 1;
+  min-width: 250px;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid transparent;
   border-radius: 25px;
-  padding: 0.75rem 1rem;
+  padding: 12px 20px;
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .search-input::placeholder {
@@ -77,127 +116,46 @@ body {
 
 .search-input:focus {
   outline: none;
+  background: rgba(255, 255, 255, 0.15);
   border-color: var(--spotify-green);
-}
-
-/* ===== BOUTONS ===== */
-.button-group {
-  display: flex;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.search-btn, .clear-btn {
-  border-radius: 25px;
-  padding: 0.75rem 1rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  border: none;
-  flex: 1;
-  transition: all 0.2s ease;
+  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.3);
 }
 
 .search-btn {
   background: var(--spotify-green);
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
   color: var(--spotify-black);
-}
-
-.search-btn:hover:not(:disabled) {
-  background: var(--spotify-hover-green);
-  transform: scale(1.02);
-}
-
-.search-btn:disabled {
-  background: var(--spotify-dark-gray);
-  cursor: not-allowed;
-}
-
-.clear-btn {
-  background: transparent;
-  border: 2px solid var(--spotify-gray);
-  color: var(--spotify-gray);
-}
-
-.clear-btn:hover {
-  border-color: var(--text-primary);
-  color: var(--text-primary);
-}
-
-/* ===== HERO SECTION ===== */
-.hero-section {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  padding: 0 0.5rem;
-}
-
-.hero-title {
-  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  word-wrap: break-word;
-}
-
-.hero-spotify {
-  color: var(--spotify-green);
-}
-
-.hero-subtitle {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-/* ===== SUGGESTIONS ===== */
-.suggestions {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.suggestions-title {
-  color: var(--text-secondary);
-  margin-bottom: 0.75rem;
-  font-size: 0.8rem;
-}
-
-.suggestions-tags {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 0 0.25rem;
-}
-
-.suggestion-tag {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 0.5rem 0.75rem;
-  color: var(--text-primary);
-  font-size: 0.8rem;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.suggestion-tag:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+.search-btn:hover {
+  background: var(--spotify-hover-green);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
 }
 
-/* ===== ALBUMS ===== */
+.search-btn:active {
+  transform: translateY(0);
+}
+
+/* Container des albums */
 .albums-container {
-  width: 100%;
-  max-width: 100%;
-  flex: 1;
+  padding: 20px 0;
 }
 
+/* ALBUMS AVEC IMAGES */
 .albums-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 1rem;
   width: 100%;
-  max-width: 100%;
-  padding: 0 0.25rem;
 }
 
 .album-card {
@@ -205,99 +163,354 @@ body {
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 100%;
-  max-width: 100%;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.album-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-}
-
-.album-image-container {
-  position: relative;
-  overflow: hidden;
-  padding-bottom: 100%;
-  width: 100%;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .album-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .album-content {
-  padding: 0.6rem 0.5rem;
-  text-align: center;
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .album-title {
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.4rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-height: 1.8rem;
-  line-height: 1.1;
-  word-break: break-word;
-  hyphens: auto;
+  margin: 0;
 }
 
 .album-release-date {
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
-  margin-bottom: 0.5rem;
+  margin: 0;
 }
 
 .album-link-btn {
   background: var(--spotify-green);
   border: none;
   border-radius: 20px;
-  padding: 0.45rem 0.3rem;
+  padding: 0.5rem 1rem;
   color: var(--spotify-black);
-  font-weight: 600;
-  font-size: 0.6rem;
+  font-weight: 700;
+  font-size: 0.8rem;
   text-decoration: none;
-  display: block;
   text-align: center;
-  width: 100%;
   text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: background 0.2s ease;
+  align-self: flex-start;
 }
 
-.album-link-btn:hover {
-  background: var(--spotify-hover-green);
+/* État de chargement */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--spotify-gray);
 }
 
-/* ===== RESULTS HEADER ===== */
+.loading-spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 3px solid var(--spotify-green);
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Message d'erreur */
+.error-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 12px;
+  margin: 20px;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* État vide */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--spotify-gray);
+}
+
+.empty-state-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .albums-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    padding: 0 15px;
+  }
+  
+  .search-container {
+    padding: 0 15px;
+  }
+  
+  .search-input-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .search-input {
+    min-width: 100%;
+    width: 100%;
+  }
+  
+  .search-btn {
+    width: 100%;
+  }
+  
+  .album-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .album-title {
+    font-size: 14px;
+  }
+  
+  .album-release-date {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .albums-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  
+  .app-container {
+    padding: 10px 0;
+  }
+  
+  .search-header {
+    padding: 20px 0;
+    margin-bottom: 20px;
+  }
+  
+  .album-content {
+    padding: 12px;
+  }
+}
+
+/* Animation d'apparition des cartes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.album-card {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.album-card:nth-child(odd) {
+  animation-delay: 0.1s;
+}
+
+.album-card:nth-child(even) {
+  animation-delay: 0.2s;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--spotify-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--spotify-dark-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--spotify-gray);
+}
+
+/* Focus visible pour l'accessibilité */
+.search-input:focus-visible,
+.search-btn:focus-visible,
+.album-link-btn:focus-visible {
+  outline: 2px solid var(--spotify-green);
+  outline-offset: 2px;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--spotify-green) 0%, #1ed760 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-spotify {
+  color: var(--spotify-white);
+  -webkit-text-fill-color: var(--spotify-white);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.clear-btn {
+  background: transparent;
+  border: 2px solid var(--spotify-gray);
+  color: var(--spotify-gray);
+  border-radius: 25px;
+  padding: 12px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+  border-color: var(--spotify-white);
+  color: var(--spotify-white);
+  background: transparent;
+}
+
+/* Suggestions */
+.suggestions {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.suggestions-title {
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.suggestions-tags {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.suggestion-tag {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.suggestion-tag:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Features Grid */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--spotify-green);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.feature h4 {
+  color: var(--spotify-green);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.feature p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Results Header */
 .results-header {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .results-title {
   color: var(--text-primary);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.3;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .artist-name {
@@ -306,7 +519,8 @@ body {
 
 .results-count {
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .back-btn {
@@ -314,274 +528,105 @@ body {
   border: 2px solid var(--spotify-gray);
   color: var(--spotify-gray);
   border-radius: 25px;
-  padding: 0.6rem 1rem;
+  padding: 10px 20px;
   font-weight: 600;
-  font-size: 0.85rem;
-  width: fit-content;
-  align-self: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .back-btn:hover {
-  border-color: var(--text-primary);
-  color: var(--text-primary);
-}
-
-/* ===== ÉTATS ===== */
-.loading-state, .error-message, .empty-state {
-  text-align: center;
-  padding: 2rem 1rem;
-  color: var(--spotify-gray);
-  width: 100%;
-}
-
-.loading-spinner {
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top: 3px solid var(--spotify-green);
-  width: 2.5rem;
-  height: 2.5rem;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 1rem;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.error-message {
-  color: #ff6b6b;
-}
-
-.empty-state-description {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  margin-bottom: 1.5rem;
-  color: var(--text-secondary);
-}
-
-/* ===== FEATURES ===== */
-.features {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.feature {
-  text-align: center;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  transition: background 0.2s ease;
-}
-
-.feature:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.feature h4 {
+  border-color: var(--spotify-green);
   color: var(--spotify-green);
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  background: transparent;
 }
 
-.feature p {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-}
-
-/* ===== FOOTER ===== */
-.app-footer {
-  text-align: center;
-  margin-top: 2rem;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  padding: 1rem 0;
+/* Album Overlay */
+.album-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
-/* ===== SPINNER ===== */
+.album-card:hover .album-overlay {
+  opacity: 1;
+}
+
+.play-icon {
+  color: var(--spotify-green);
+  font-size: 3rem;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+.album-card:hover .play-icon {
+  transform: scale(1);
+}
+
+/* Footer */
+.app-footer {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 30px 0;
+  margin-top: 60px;
+  text-align: center;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Spinner pour le bouton */
 .spinner {
   display: inline-block;
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 12px;
+  height: 12px;
   border: 2px solid transparent;
   border-top: 2px solid currentColor;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-right: 0.5rem;
+  margin-right: 8px;
 }
 
-/* ===== RESPONSIVE TABLETTE ===== */
-@media (min-width: 768px) {
-  #root {
-    padding: 1.5rem;
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
   }
   
-  .search-input-group {
-    flex-direction: row;
+  .results-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
   }
   
-  .search-input {
-    flex: 1;
+  .features {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .button-group {
-    width: auto;
-    flex: 0 0 auto;
+    width: 100%;
   }
   
-  .albums-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  .search-btn, .clear-btn {
+    flex: 1;
   }
-  
+}
+
+@media (max-width: 480px) {
   .hero-title {
     font-size: 2rem;
   }
   
-  .album-title {
-    font-size: 0.85rem;
-    min-height: 2rem;
+  .hero-subtitle {
+    font-size: 1rem;
   }
   
-  .album-release-date {
-    font-size: 0.75rem;
+  .suggestions-tags {
+    justify-content: flex-start;
   }
-  
-  .album-link-btn {
-    font-size: 0.7rem;
-    padding: 0.5rem 0.4rem;
-  }
-  
-  .album-content {
-    padding: 0.75rem;
-  }
-  
-  .features {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .results-title {
-    font-size: 1.2rem;
-  }
-}
-
-/* ===== RESPONSIVE DESKTOP ===== */
-@media (min-width: 1024px) {
-  .albums-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  
-  .results-header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-  }
-  
-  .album-title {
-    font-size: 0.9rem;
-    min-height: 2.2rem;
-  }
-  
-  .album-release-date {
-    font-size: 0.8rem;
-  }
-  
-  .album-link-btn {
-    font-size: 0.75rem;
-    padding: 0.6rem 0.5rem;
-  }
-  
-  .album-content {
-    padding: 0.85rem;
-  }
-}
-
-/* ===== TRÈS PETITS ÉCRANS ===== */
-@media (max-width: 360px) {
-  #root {
-    padding: 0.5rem;
-  }
-  
-  .albums-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .album-card {
-    max-width: 100%;
-  }
-  
-  .button-group {
-    flex-direction: column;
-  }
-  
-  .hero-title {
-    font-size: 1.3rem;
-  }
-  
-  .album-title {
-    font-size: 0.8rem;
-    min-height: 2rem;
-  }
-  
-  .album-link-btn {
-    font-size: 0.65rem;
-    padding: 0.5rem 0.3rem;
-  }
-}
-
-/* ===== ÉCRANS ULTRA PETITS (< 320px) ===== */
-@media (max-width: 320px) {
-  .album-title {
-    font-size: 0.75rem;
-    min-height: 1.8rem;
-  }
-  
-  .album-link-btn {
-    font-size: 0.6rem;
-    padding: 0.45rem 0.25rem;
-  }
-  
-  .search-btn, .clear-btn {
-    font-size: 0.8rem;
-    padding: 0.6rem 0.8rem;
-  }
-  
-  .album-release-date {
-    font-size: 0.6rem;
-  }
-}
-
-/* ===== CORRECTIONS SPÉCIFIQUES ===== */
-
-/* Empêcher le débordement du texte */
-.album-title, .results-title {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Assurer que tout tient dans l'écran */
-.app-container, .search-container, .albums-container {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-/* Fix pour les boutons sur mobile */
-@media (max-width: 767px) {
-  .album-link-btn {
-    letter-spacing: -0.3px;
-  }
-}
-
-/* Amélioration de la lisibilité */
-.album-title {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
