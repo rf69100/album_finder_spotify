@@ -95,11 +95,17 @@ body {
   cursor: pointer;
   border: none;
   flex: 1;
+  transition: all 0.2s ease;
 }
 
 .search-btn {
   background: var(--spotify-green);
   color: var(--spotify-black);
+}
+
+.search-btn:hover:not(:disabled) {
+  background: var(--spotify-hover-green);
+  transform: scale(1.02);
 }
 
 .search-btn:disabled {
@@ -113,6 +119,11 @@ body {
   color: var(--spotify-gray);
 }
 
+.clear-btn:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
 /* ===== HERO SECTION ===== */
 .hero-section {
   text-align: center;
@@ -124,6 +135,7 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  word-wrap: break-word;
 }
 
 .hero-spotify {
@@ -164,7 +176,12 @@ body {
   color: var(--text-primary);
   font-size: 0.8rem;
   cursor: pointer;
-  border: none;
+  transition: all 0.2s ease;
+}
+
+.suggestion-tag:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
 }
 
 /* ===== ALBUMS ===== */
@@ -190,6 +207,12 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
   max-width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.album-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .album-image-container {
@@ -209,44 +232,53 @@ body {
 }
 
 .album-content {
-  padding: 0.75rem;
+  padding: 0.6rem 0.5rem;
   text-align: center;
 }
 
 .album-title {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-height: 2rem;
+  min-height: 1.8rem;
   line-height: 1.1;
   word-break: break-word;
+  hyphens: auto;
 }
 
 .album-release-date {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--text-secondary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .album-link-btn {
   background: var(--spotify-green);
   border: none;
   border-radius: 20px;
-  padding: 0.6rem;
+  padding: 0.45rem 0.3rem;
   color: var(--spotify-black);
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 0.6rem;
   text-decoration: none;
   display: block;
   text-align: center;
   width: 100%;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.2s ease;
+}
+
+.album-link-btn:hover {
+  background: var(--spotify-hover-green);
 }
 
 /* ===== RESULTS HEADER ===== */
@@ -261,9 +293,11 @@ body {
 
 .results-title {
   color: var(--text-primary);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .artist-name {
@@ -272,7 +306,7 @@ body {
 
 .results-count {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .back-btn {
@@ -282,9 +316,16 @@ body {
   border-radius: 25px;
   padding: 0.6rem 1rem;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   width: fit-content;
   align-self: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
 }
 
 /* ===== ÉTATS ===== */
@@ -334,6 +375,11 @@ body {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.feature:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .feature h4 {
@@ -397,8 +443,30 @@ body {
     font-size: 2rem;
   }
   
+  .album-title {
+    font-size: 0.85rem;
+    min-height: 2rem;
+  }
+  
+  .album-release-date {
+    font-size: 0.75rem;
+  }
+  
+  .album-link-btn {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.4rem;
+  }
+  
+  .album-content {
+    padding: 0.75rem;
+  }
+  
   .features {
     grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .results-title {
+    font-size: 1.2rem;
   }
 }
 
@@ -413,6 +481,24 @@ body {
     justify-content: space-between;
     align-items: center;
     text-align: left;
+  }
+  
+  .album-title {
+    font-size: 0.9rem;
+    min-height: 2.2rem;
+  }
+  
+  .album-release-date {
+    font-size: 0.8rem;
+  }
+  
+  .album-link-btn {
+    font-size: 0.75rem;
+    padding: 0.6rem 0.5rem;
+  }
+  
+  .album-content {
+    padding: 0.85rem;
   }
 }
 
@@ -434,9 +520,45 @@ body {
   .button-group {
     flex-direction: column;
   }
+  
+  .hero-title {
+    font-size: 1.3rem;
+  }
+  
+  .album-title {
+    font-size: 0.8rem;
+    min-height: 2rem;
+  }
+  
+  .album-link-btn {
+    font-size: 0.65rem;
+    padding: 0.5rem 0.3rem;
+  }
 }
 
-/* ===== CORRECTIONS SPÉCIFIQUES POUR LES PROBLÈMES VISIBLES ===== */
+/* ===== ÉCRANS ULTRA PETITS (< 320px) ===== */
+@media (max-width: 320px) {
+  .album-title {
+    font-size: 0.75rem;
+    min-height: 1.8rem;
+  }
+  
+  .album-link-btn {
+    font-size: 0.6rem;
+    padding: 0.45rem 0.25rem;
+  }
+  
+  .search-btn, .clear-btn {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .album-release-date {
+    font-size: 0.6rem;
+  }
+}
+
+/* ===== CORRECTIONS SPÉCIFIQUES ===== */
 
 /* Empêcher le débordement du texte */
 .album-title, .results-title {
@@ -450,19 +572,16 @@ body {
   overflow-x: hidden;
 }
 
-/* Ajustements pour les très petits textes */
-@media (max-width: 320px) {
-  .album-title {
-    font-size: 0.8rem;
-  }
-  
+/* Fix pour les boutons sur mobile */
+@media (max-width: 767px) {
   .album-link-btn {
-    font-size: 0.7rem;
-    padding: 0.5rem;
+    letter-spacing: -0.3px;
   }
-  
-  .search-btn, .clear-btn {
-    font-size: 0.8rem;
-    padding: 0.6rem 0.8rem;
-  }
+}
+
+/* Amélioration de la lisibilité */
+.album-title {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
