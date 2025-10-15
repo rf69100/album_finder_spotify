@@ -304,17 +304,16 @@ body {
     padding: 8px 2px;
   }
   .albums-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: block !important;
+    width: 100% !important;
     padding: 0 5px;
-    width: 100%;
     box-sizing: border-box;
   }
   .album-card {
-    width: 100%;
-    min-width: 0;
-    margin: 0 auto 8px auto;
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 0 12px 0 !important;
     box-sizing: border-box;
   }
   .empty-state {
