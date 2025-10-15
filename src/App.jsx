@@ -1,3 +1,4 @@
+import React from "react";
 import { FormControl, Container, Button, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import "./App.css";
@@ -181,7 +182,6 @@ function App() {
               Découvrez la discographie complète de vos artistes préférés
             </p>
           </div>
-          
           <div className="search-container">
             <div className="search-input-group">
               <FormControl
@@ -222,7 +222,6 @@ function App() {
                 </Button>
               </div>
             </div>
-            
             {/* Suggestions d'artistes */}
             {!hasSearched && albums.length === 0 && !error && (
               <div className="suggestions">
@@ -317,8 +316,8 @@ function App() {
                 ← Nouvelle recherche
               </Button>
             </div>
-            
-            <div className="albums-grid">
+            {/* Ajout de la classe responsive à la grille */}
+            <div className="albums-grid responsive-grid">
               {albums.map((album, index) => (
                 <Card key={album.id} className="album-card">
                   <div className="album-image-container">
