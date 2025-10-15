@@ -292,40 +292,28 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .search-header {
+    padding: 10px 0 6px 0;
+    margin-bottom: 8px;
+  }
+  .results-header {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+  .albums-container {
+    padding: 8px 2px;
+  }
   .albums-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 16px;
-    padding: 0 15px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    padding: 0 5px;
   }
-  
-  .search-container {
-    padding: 0 15px;
+  .album-card {
+    margin-bottom: 8px;
+    padding: 8px 4px;
   }
-  
-  .search-input-group {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .search-input {
-    min-width: 100%;
-    width: 100%;
-  }
-  
-  .search-btn {
-    width: 100%;
-  }
-  
-  .album-card:hover {
-    transform: translateY(-4px);
-  }
-  
-  .album-title {
-    font-size: 14px;
-  }
-  
-  .album-release-date {
-    font-size: 12px;
+  .empty-state {
+    padding: 20px 5px;
   }
 }
 
